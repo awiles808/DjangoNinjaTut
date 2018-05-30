@@ -11,7 +11,7 @@ class Articles(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
-    # thumb = models.ImageField(default='default.png', blank=True)
+    thumb = models.ImageField(default='default.png', blank=True)
     # add in thumbnail later
     # add in author later
 
