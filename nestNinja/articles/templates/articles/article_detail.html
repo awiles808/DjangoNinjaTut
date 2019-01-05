@@ -4,9 +4,13 @@
 
 <div class="article-detail">
   <div class="article">
+    <img src="{{ article.thumb.url }}" />
     <h2>{{article.title}}</h2>
     <p>{{article.body}}</p>
     <p>{{article.date}}</p>
+    
+    <input type="submit" value="Delete" method="delete" >
+    <input type="submit" value="Update" method="update" >
 
   </div>
 </div>

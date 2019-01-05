@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Articles
 from django.contrib.auth.decorators import login_required
 from .import forms
@@ -31,3 +31,31 @@ def article_create(request):
     else:
         form = forms.CreateArticles()
     return render(request, 'articles/article_create.html', {'form': form})
+
+
+def article_update(request, slug):
+    instance = get_object_or_404(Post, slug=slug)
+    if request.method == 'PUT':
+        form = forms.CreateArticles(request.PUT, request.FILES)
+        if form.is_valid():
+            # save article to db
+            instance = form.update(commit=False)
+            instance.author = request.user
+            instance.save()
+
+            return render(request, 'article_update', form)
+    else:
+        form = forms.CreateArticles()
+    return render(request, 'articles/article_update.html', {'form': form})
+
+
+# def article_delete(request, article):
+#     if request.method == 'Delete':
+#         form = forms.CreateArticles(request.Delete,)
+#         if form.is_valid():
+#             # delete article from db
+#             instance = form.delete(commit=False)
+#             instance.author = request.user
+#             instance.delete()
+#
+#             return redirect('articles:list')
